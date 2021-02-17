@@ -4,55 +4,9 @@ import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 
-const axios = require('axios').default;
+import { getAppointmentsForDay } from "helpers/selectors";
 
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-    
-  },
-  {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Archie Cohen",
-      interviewer: {
-        id: 2,
-        name: "Tori Malcolm",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 5,
-    time: "4pm",
-    interview: {
-      student: "Maria Boucher",
-      interviewer: {
-        id: 3,
-        name: "Mildred Nazir",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  }
-];
+const axios = require('axios').default;
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -60,21 +14,23 @@ export default function Application(props) {
     days: [], 
     appointments: {}
   });
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day); 
+
   const setDay = (day) => {
     setState({ ...state, day});
-  }
-  const setDays = (days) => {
-    setState(prev => ({...prev, days}));
-  }
-
+  };
+ 
   useEffect(() => {
-    axios.get('/api/days')
-    .then((response) => {
-      setDays(response.data);
+    Promise.all([
+      axios.get('/api/days'),
+      axios.get('/api/appointments')
+    ]).then((all) => {
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data}));
     });
   }, [])
 
-  const appointmentsList = appointments.map(appointment => (
+  const appointmentsList = dailyAppointments.map(appointment => (
     <Appointment 
       key = {appointment.id}
       {...appointment}
