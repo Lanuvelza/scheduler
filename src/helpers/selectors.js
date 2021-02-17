@@ -13,3 +13,14 @@ export function getAppointmentsForDay(state, day) {
   })
   return appointments; 
 }
+
+// returns the interview information 
+export function getInterview(state, interview) {
+  const interviewInfo = {}
+  if (!interview) {
+    return null;
+  }
+  interviewInfo.student = interview.student
+  interviewInfo.interviewer = state.interviewers[interview.interviewer];
+  return interviewInfo; 
+}
