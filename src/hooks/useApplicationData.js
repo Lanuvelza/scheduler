@@ -49,6 +49,9 @@ export function useApplicationData() {
         ...state,
         appointments
       }); 
+    })
+    .then(() => {
+      updateSpots();
     });
   }
 
@@ -68,8 +71,22 @@ export function useApplicationData() {
         ...state,
         appointments
       });
+    })
+    .then(() => {
+      updateSpots();
     });
   }
+
+  // updates the spots remaining 
+  function updateSpots() {
+    axios.get('/api/days')
+    .then((response) => {
+      setState(prev => ({
+        ...prev,
+        days: response.data
+      }));
+    });
+  };
 
   return {
     state,
