@@ -21,7 +21,7 @@ export function useApplicationData() {
       case SET_INTERVIEW: { 
         const appointment = {
           ...state.appointments[id],
-          interview: { ...interview }
+          interview: interview && { ...interview }
         };
         const appointments = {
           ...state.appointments,
@@ -64,6 +64,18 @@ export function useApplicationData() {
         interviewers: all[2].data
       })
     });
+
+    // Connect to Websocket
+    const ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+
+    ws.onmessage = function(event) {
+      const { type, id, interview } = JSON.parse(event.data); 
+      if (type === "SET_INTERVIEW") {
+        dispatch({ type: type, id: id, interview: interview }); 
+        updateSpots();
+      }
+    }
+    return () => ws.close();
   }, []);
 
   // books a new interview
