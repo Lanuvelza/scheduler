@@ -1,10 +1,13 @@
 import { useReducer, useEffect } from 'react';
 
-const axios = require('axios').default;
+import {
+  reducer,
+  SET_DAY,
+  SET_APPLICATION_DATA,
+  SET_INTERVIEW
+} from "reducers/application";
 
-const SET_DAY = "SET_DAY"; 
-const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
-const SET_INTERVIEW = "SET_INTERVIEW"; 
+const axios = require('axios').default;
 
 export function useApplicationData() {
   // initial state of scheduler appw
@@ -14,32 +17,6 @@ export function useApplicationData() {
     appointments: {}, 
     interviewers: {}
   });
-  
-  function reducer(state, action) {
-    const { day, days, appointments, interviewers, id, interview } = action;
-    switch (action.type) {
-      case SET_DAY: {
-        return { ...state, day };
-      }
-      case SET_APPLICATION_DATA: {
-        return { ...state, days, appointments, interviewers };
-      }
-      case SET_INTERVIEW: { 
-        const appointment = {
-          ...state.appointments[id],
-          interview: interview && { ...interview }
-        };
-        const appointments = {
-          ...state.appointments,
-          [id]: appointment
-        };
-        const days = updateSpots(state.day, state.days, appointments);
-        
-        return { ...state, appointments, days };
-      }
-      default: throw new Error(`Tried to reduce with unsupported action type: ${action.type}`);
-    }
-  }
   
   // sets the day to the selected day
   const setDay = (day) => {
@@ -90,15 +67,6 @@ export function useApplicationData() {
     })
   }
   
-  // updates spots remaining by counting the number of null interviews
-  function updateSpots(day, days, appointments) {
-    const dayObj = days.filter(dayElement => dayElement.name === day); 
-    const spots = dayObj[0].appointments.filter(e => appointments[e].interview === null).length;
-    const newDayObj = { ...dayObj[0], spots }
-    const newArray =  days.map(item => item.name === day ? newDayObj : item);
-    return newArray;
-  };
-
   return {
     state,
     setDay,
