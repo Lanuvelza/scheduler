@@ -61,6 +61,7 @@ export default function Appointment(props) {
       time = {props.time}
     /> 
   {mode === EMPTY && <Empty onAdd={() => transition("CREATE")} />}
+  
   {mode === CONFIRM && (
     <Confirm 
       onCancel={() => back()}
