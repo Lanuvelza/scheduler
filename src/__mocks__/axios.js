@@ -80,5 +80,21 @@ export default {
         data: fixtures.interviewers
       });
     }
+  }),
+  put: jest.fn(url => {
+    // fixtures.days[0].spots -= 1;
+    // console.log(fixtures.days);
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content"
+    });
+  }),
+  delete: jest.fn(url => {
+    // fixtures.days[0].spots += 1;
+    // console.log(fixtures.days);
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content"
+    });
   })
 }
