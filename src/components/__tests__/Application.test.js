@@ -193,6 +193,7 @@ describe("Application", () => {
     const appointment = getAllByTestId(container, "appointment").find(
       appointment => queryByText(appointment, 'Archie Cohen')
     );
+    
     fireEvent.click(queryByAltText(appointment, 'Delete'));
     
     // 4. Check that the confirmation message is shown.
