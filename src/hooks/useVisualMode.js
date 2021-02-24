@@ -12,7 +12,7 @@ export function useVisualMode(initial) {
       }); 
     }
     setMode(newMode);
-  }
+  };
 
   // goes back to the previous mode in history if history length > 1
   function back() {
@@ -24,11 +24,11 @@ export function useVisualMode(initial) {
         return newHistory
       });
     }
-  }
+  };
   
   return { 
     mode, 
     transition,
     back
   };
-}
+};

@@ -26,7 +26,7 @@ export function reducer(state, action) {
     }
     default: throw new Error(`Tried to reduce with unsupported action type: ${action.type}`);
   }
-}
+};
 
 // updates spots remaining by counting the number of null interviews
 function updateSpots(day, days, appointments) {

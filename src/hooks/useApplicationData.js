@@ -20,7 +20,7 @@ export function useApplicationData() {
   
   // sets the day to the selected day
   const setDay = (day) => {
-    dispatch({ type: SET_DAY, day}); 
+    dispatch({ type: SET_DAY, day }); 
   };
   
   // api call to retrieve data for days, appointments and interviewers
@@ -57,7 +57,7 @@ export function useApplicationData() {
     .then(() => {
       dispatch({ type: SET_INTERVIEW, id, interview });
     })
-  }
+  };
   
   // cancels an interview
   function cancelInterview(id) {
@@ -65,7 +65,7 @@ export function useApplicationData() {
     .then(() => {
       dispatch({ type: SET_INTERVIEW, id, interview: null });
     })
-  }
+  };
   
   return {
     state,
@@ -73,4 +73,4 @@ export function useApplicationData() {
     bookInterview,
     cancelInterview
   }
-}
+};

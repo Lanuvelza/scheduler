@@ -12,7 +12,7 @@ export function getAppointmentsForDay(state, day) {
     appointments.push(state.appointments[appointment]); 
   })
   return appointments; 
-}
+};
 
 // returns the interview information 
 export function getInterview(state, interview) {
@@ -23,7 +23,7 @@ export function getInterview(state, interview) {
   interviewInfo.student = interview.student
   interviewInfo.interviewer = state.interviewers[interview.interviewer];
   return interviewInfo; 
-}
+};
 
 // returns an array of interviewers for that day
 export function getInterviewersForDay(state, day) {
@@ -39,4 +39,4 @@ export function getInterviewersForDay(state, day) {
     interviewers.push(state.interviewers[interviewer]); 
   })
   return interviewers; 
-}
+};
