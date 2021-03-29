@@ -2,9 +2,24 @@
 
 Interview scheduler app built on React. Each day holds up to five appointments. Users can edit, delete or book between days. Data is retrieved from an API server using PostgreSQL database. 
 
-## Additional Feature
+## Features 
+ - Displays the appointment days (Monday to Friday) and the number of slots remaining for each day 
+ - Users can view which timeslots are booked and the details of that information by clicking a specific day 
+ - Users can book an interview by typing their name and selecting an interviewer from a list of interviewers on that given day 
+ - Users can edit their booked interview information by selecting the edit icon of a booked interview 
+ - Users can cancel a booked interview by pressing confirm on a pop-up message before deleting the interview timeslot
+
+## Additional Features
 
 - added websockets such that booked and deleted appointments will sync across multiple clients.
+
+## Tech Stack 
+
+Front-End: React, JSX, HTML, SCSS, JS 
+
+Back-End: Express, Axios, Node.js, PostgresQL 
+
+Testing: Jest, Storybook, Cypress, React Testing Library 
 
 # Final Product 
 
